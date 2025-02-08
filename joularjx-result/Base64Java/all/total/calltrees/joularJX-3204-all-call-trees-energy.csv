@@ -1,0 +1,10 @@
+java.lang.ref.Reference$ReferenceHandler.run;java.lang.ref.Reference.processPendingReferences;java.lang.ref.Reference.waitForReferencePendingList,0.0000
+math_benchmarks.Base64Java.main;java.util.Base64$Encoder.encodeToString;java.lang.String.<init>;java.util.Arrays.copyOfRange,0.1043
+math_benchmarks.Base64Java.main;java.util.Base64$Decoder.decode;java.util.Base64$Decoder.decode0;java.util.Base64$Decoder.decodeBlock,9.5609
+math_benchmarks.Base64Java.main;java.util.Base64$Decoder.decode;java.util.Base64$Decoder.decode0,0.3029
+math_benchmarks.Base64Java.main,0.4174
+math_benchmarks.Base64Java.main;java.util.Base64$Encoder.encodeToString,0.1043
+math_benchmarks.Base64Java.main;java.util.Base64$Encoder.encodeToString;java.util.Base64$Encoder.encode;java.util.Base64$Encoder.encode0;java.util.Base64$Encoder.encodeBlock,7.0953
+math_benchmarks.Base64Java.main;java.util.Base64$Encoder.encodeToString;java.lang.String.<init>,1.2521
+math_benchmarks.Base64Java.main;java.util.Base64$Decoder.decode,0.8615
+math_benchmarks.Base64Java.main;java.util.Base64$Encoder.encodeToString;java.util.Base64$Encoder.encode,0.7304

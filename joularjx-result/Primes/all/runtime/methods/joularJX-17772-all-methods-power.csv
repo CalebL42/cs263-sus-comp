@@ -1,0 +1,11 @@
+java.lang.ref.Reference.waitForReferencePendingList,0.0000
+java.util.HashMap.putVal,0.0581
+math_benchmarks.Primes.generateTrie,0.2322
+math_benchmarks.Primes$Node.<init>,0.0581
+math_benchmarks.Primes$Sieve.loopY,0.1161
+math_benchmarks.Primes$Sieve.toList,0.1161
+java.net.Inet6AddressImpl.lookupAllHostAddr,0.0581
+java.lang.StringLatin1.toChars,0.0581
+sun.nio.ch.NioSocketImpl.closerFor,0.0581
+java.util.HashMap.newNode,0.0581
+java.util.HashMap.hash,0.0581

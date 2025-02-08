@@ -1,0 +1,10 @@
+java.util.Base64$Encoder.encodeToString,0.1043
+java.util.Base64$Decoder.decode,0.8615
+java.util.Base64$Decoder.decode0,0.3029
+java.util.Base64$Encoder.encode,0.7304
+java.util.Base64$Decoder.decodeBlock,9.5609
+java.lang.ref.Reference.waitForReferencePendingList,0.0000
+java.lang.String.<init>,1.2521
+math_benchmarks.Base64Java.main,0.4174
+java.util.Base64$Encoder.encodeBlock,7.0953
+java.util.Arrays.copyOfRange,0.1043

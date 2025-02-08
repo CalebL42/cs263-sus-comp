@@ -1,0 +1,4 @@
+java.lang.ref.Reference$ReferenceHandler.run;java.lang.ref.Reference.processPendingReferences;java.lang.ref.Reference.waitForReferencePendingList,0.0000
+math_benchmarks.Base64Java.main;java.util.Base64$Decoder.decode;java.util.Base64$Decoder.decode0;java.util.Base64$Decoder.decodeBlock,5.8970
+math_benchmarks.Base64Java.main;java.util.Base64$Decoder.decode;java.util.Base64$Decoder.decode0,0.1999
+math_benchmarks.Base64Java.main;java.util.Base64$Decoder.decode,0.4997
