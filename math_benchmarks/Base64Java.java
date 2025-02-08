@@ -1,3 +1,4 @@
+package math_benchmarks;
 import java.util.Arrays;
 import java.util.Base64;
 import static java.lang.System.out;

@@ -1,5 +1,5 @@
 // Written by Attractive Chaos; distributed under the MIT license
-
+package math_benchmarks;
 final class matmul {
 
     private static double[][] matgen(final int n, final double seed) {
