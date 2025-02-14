@@ -1,6 +1,7 @@
 # cs263-sus-comp
 Comparing the sustainability of large software workloads in Java vs C++
 
+# CPPJoules
 See https://rishalab.github.io/CPPJoules/ for a quick start guide on installing/using CPPJoules.
 
 JoularJX at https://github.com/joular/joularjx
@@ -12,3 +13,6 @@ JoularJX at https://github.com/joular/joularjx
    1. e.g. `java -javaagent:joularjx\target\joularjx-3.0.1.jar math-benchmarks.Base64Java`
 
 Test results are generated in the folder joularjx-result
+
+# Main tests come from the Computer Languages Benchmarks Game 
+See https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html for details
