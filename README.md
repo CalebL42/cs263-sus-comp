@@ -1,7 +1,6 @@
 # cs263-sus-comp
 Comparing the sustainability of large software workloads in Java vs C++
 
-### CPPJoules
 See https://rishalab.github.io/CPPJoules/ for a quick start guide on installing/using CPPJoules.
 
 JoularJX at https://github.com/joular/joularjx
