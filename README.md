@@ -12,3 +12,6 @@ JoularJX at https://github.com/joular/joularjx
    1. e.g. `java -javaagent:joularjx\target\joularjx-3.0.1.jar math-benchmarks.Base64Java`
 
 Test results are generated in the folder joularjx-result
+
+### Computer Languages Benchmarks Game 
+A large portion of the tests we use came from this project. See https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html for details
