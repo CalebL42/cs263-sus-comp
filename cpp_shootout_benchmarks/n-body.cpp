@@ -9,6 +9,8 @@
  #include <stdio.h>
  #include <stdlib.h>
  #include <math.h>
+ #include<cppJoules.h>
+
  
  namespace 
  {
@@ -235,7 +237,10 @@
  
  int main(int,char** argv)
  {
-  
+  //cpp joules
+  EnergyTracker tracker;
+  tracker.start();
+
    auto solar_system = construct_tuple(sun,jupiter,saturn,uranus,neptune);
    offset(solar_system);
  
@@ -250,6 +255,10 @@
  
    printf ("%.9f\n", energy(solar_system));
  
+  //cpp joules
+  tracker.stop();
+  tracker.calculate_energy();
+  tracker.print_energy();
    return 0;
  }
  

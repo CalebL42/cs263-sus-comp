@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <future>
 #include <unistd.h>
+#include<cppJoules.h>
 
 typedef unsigned char int_t;
 
@@ -125,6 +126,10 @@ Result fannkuch(int n)
 
 int main(int argc, char** argv)
 {
+   //cpp joules
+   EnergyTracker tracker;
+   tracker.start();
+
    int n = 7;
    if(argc > 1)n = atoi(argv[1]);
    if(n < 3 || n > 12)
@@ -134,4 +139,9 @@ int main(int argc, char** argv)
    }
    Result r = fannkuch(n);
    printf("%d\nPfannkuchen(%d) = %d\n",r.checksum,n,r.maxflips);
+
+   //cpp joules
+   tracker.stop();
+   tracker.calculate_energy();
+   tracker.print_energy();
 }
