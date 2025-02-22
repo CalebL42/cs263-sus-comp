@@ -1,0 +1,4 @@
+java.io.PrintStream.write,0.0485
+java.lang.ref.Reference.waitForReferencePendingList,0.0000
+java_shootout_benchmarks.mandelbrot.mandelbrot.main,53.4049
+java.io.FileOutputStream.writeBytes,55.0109

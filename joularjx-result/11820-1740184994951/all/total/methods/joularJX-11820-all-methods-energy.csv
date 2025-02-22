@@ -1,0 +1,4 @@
+java_shootout_benchmarks.spectral_norm.spectralnorm.eval_A_times_u,3.9090
+java.lang.ref.Reference.waitForReferencePendingList,0.0000
+java.io.FileOutputStream.writeBytes,0.0900
+java_shootout_benchmarks.spectral_norm.spectralnorm.eval_At_times_u,13.2576

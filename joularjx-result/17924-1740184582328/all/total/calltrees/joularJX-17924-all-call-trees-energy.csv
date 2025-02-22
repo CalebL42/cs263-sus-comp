@@ -1,0 +1,2 @@
+java.lang.ref.Reference$ReferenceHandler.run;java.lang.ref.Reference.processPendingReferences;java.lang.ref.Reference.waitForReferencePendingList,0.0000
+java_shootout_benchmarks.n_body.nbody.main;java_shootout_benchmarks.n_body.nbody.nbody;java.io.PrintStream.printf;java.io.PrintStream.format;java.util.Formatter.format;java.util.Formatter$FormatSpecifier.print;java.util.Formatter$FormatSpecifier.printFloat;java.util.Formatter$FormatSpecifier.print;java.util.Formatter$FormatSpecifier.print,2.4797

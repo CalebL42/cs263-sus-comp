@@ -1,0 +1,2 @@
+java.lang.ref.Reference.waitForReferencePendingList,0.0000
+jdk.internal.misc.Unsafe.compareAndSetInt,2.5419

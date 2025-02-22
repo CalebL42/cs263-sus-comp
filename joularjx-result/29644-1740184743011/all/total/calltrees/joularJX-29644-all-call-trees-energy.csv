@@ -1,0 +1,2 @@
+java.lang.ref.Reference$ReferenceHandler.run;java.lang.ref.Reference.processPendingReferences;java.lang.ref.Reference.waitForReferencePendingList,0.0000
+java_shootout_benchmarks.n_body.nbody.main;java_shootout_benchmarks.n_body.nbody.nbody;java_shootout_benchmarks.n_body.nbody.advance,6.8585

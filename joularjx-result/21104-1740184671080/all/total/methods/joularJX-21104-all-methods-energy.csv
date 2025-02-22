@@ -1,0 +1,3 @@
+java_shootout_benchmarks.n_body.nbody.advance,0.0000
+java.lang.ref.Reference.waitForReferencePendingList,3.2691
+java.util.ArrayList.grow,0.0000

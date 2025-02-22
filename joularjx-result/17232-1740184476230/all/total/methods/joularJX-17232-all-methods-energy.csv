@@ -1,0 +1,4 @@
+java.lang.ref.Reference.waitForReferencePendingList,0.0000
+java_shootout_benchmarks.mandelbrot.mandelbrot.main,2.0374
+sun.invoke.util.VerifyAccess.isClassAccessible,0.0703
+java.io.FileOutputStream.writeBytes,2.3887

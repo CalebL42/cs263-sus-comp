@@ -1,0 +1,3 @@
+java_shootout_benchmarks.binary_trees.Tree.<init>,0.7122
+java_shootout_benchmarks.binary_trees.Tree.nodeCount,0.7122
+java.lang.ref.Reference.waitForReferencePendingList,0.0000

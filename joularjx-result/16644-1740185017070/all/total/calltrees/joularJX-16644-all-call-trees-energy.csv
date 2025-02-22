@@ -1,0 +1,4 @@
+java.lang.ref.Reference$ReferenceHandler.run;java.lang.ref.Reference.processPendingReferences;java.lang.ref.Reference.waitForReferencePendingList,0.0000
+java_shootout_benchmarks.spectral_norm.spectralnorm.main;java_shootout_benchmarks.spectral_norm.spectralnorm.eval_AtA_times_u;java_shootout_benchmarks.spectral_norm.spectralnorm.eval_At_times_u,13.2503
+java_shootout_benchmarks.spectral_norm.spectralnorm.main,0.0672
+java_shootout_benchmarks.spectral_norm.spectralnorm.main;java_shootout_benchmarks.spectral_norm.spectralnorm.eval_AtA_times_u;java_shootout_benchmarks.spectral_norm.spectralnorm.eval_A_times_u,4.2436

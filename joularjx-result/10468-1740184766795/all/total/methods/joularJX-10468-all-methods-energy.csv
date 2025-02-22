@@ -1,0 +1,4 @@
+java_shootout_benchmarks.n_body.nbody.advance,0.0000
+java.lang.ref.Reference.waitForReferencePendingList,9.5245
+java_shootout_benchmarks.n_body.nbody.nbody,0.0000
+java.util.Formatter$FormatSpecifier.print,0.0000

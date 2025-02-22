@@ -1,0 +1,6 @@
+java.lang.ref.Reference.waitForReferencePendingList,0.0000
+jdk.internal.org.objectweb.asm.Label.<init>,0.0298
+java_shootout_benchmarks.mandelbrot.mandelbrot.main,0.9825
+java.io.FileOutputStream.writeBytes,1.2206
+java.io.BufferedOutputStream.flushBuffer,0.0298
+java.io.FileOutputStream.write,0.0298

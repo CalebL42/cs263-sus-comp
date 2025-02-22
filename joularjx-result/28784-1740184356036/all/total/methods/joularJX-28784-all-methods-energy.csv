@@ -1,0 +1,4 @@
+jdk.internal.org.objectweb.asm.ByteVector.putUTF8,0.1292
+java.lang.ref.Reference.waitForReferencePendingList,0.0000
+java_shootout_benchmarks.mandelbrot.mandelbrot.main,1.1627
+java.io.FileOutputStream.writeBytes,1.0335

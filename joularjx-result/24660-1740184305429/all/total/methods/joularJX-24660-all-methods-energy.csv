@@ -1,0 +1,4 @@
+java.lang.ref.Reference.waitForReferencePendingList,0.0000
+java_shootout_benchmarks.mandelbrot.mandelbrot.main,0.9061
+java.lang.invoke.InvokerBytecodeGenerator.addMethod,0.1294
+java.io.FileOutputStream.writeBytes,1.9416

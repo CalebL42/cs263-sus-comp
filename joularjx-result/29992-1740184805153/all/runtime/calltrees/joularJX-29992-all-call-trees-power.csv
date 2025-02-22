@@ -1,0 +1,4 @@
+java.lang.ref.Reference$ReferenceHandler.run;java.lang.ref.Reference.processPendingReferences;java.lang.ref.Reference.waitForReferencePendingList,0.0000
+java_shootout_benchmarks.n_body.nbody.main;java_shootout_benchmarks.n_body.nbody.nbody;java_shootout_benchmarks.n_body.nbody.advance,8.2305
+java_shootout_benchmarks.n_body.nbody.main;java_shootout_benchmarks.n_body.nbody.nbody,0.2532
+java_shootout_benchmarks.n_body.nbody.main;java_shootout_benchmarks.n_body.nbody.nbody;java.io.PrintStream.printf;java.io.PrintStream.format;java.util.Formatter.format;java.util.Formatter.parse;java.util.ArrayList.add;java.util.ArrayList.add;java.util.ArrayList.grow;java.util.ArrayList.grow,0.1266

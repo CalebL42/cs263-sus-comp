@@ -1,0 +1,5 @@
+java.lang.ref.Reference.waitForReferencePendingList,0.0000
+java.io.FileDescriptor$1.getAppend,0.0125
+java_shootout_benchmarks.fasta.fasta.randomFasta,0.0125
+java.io.FileOutputStream.writeBytes,0.0750
+sun.nio.cs.SingleByte$Encoder.encode,0.0125

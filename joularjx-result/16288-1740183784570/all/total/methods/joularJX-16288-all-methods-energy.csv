@@ -1,0 +1,3 @@
+jdk.internal.org.objectweb.asm.MethodWriter.visitFrameStart,0.7788
+java.lang.ref.Reference.waitForReferencePendingList,0.0000
+java.io.FileOutputStream.writeBytes,0.7788
