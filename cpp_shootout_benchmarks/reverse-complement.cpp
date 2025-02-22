@@ -12,6 +12,9 @@
 #include <algorithm>
 #include <iterator>
 #include <iostream>
+#include<cppJoules.h>
+
+
 using namespace std;
 
 const int LINELENGTH = 60;
@@ -46,6 +49,10 @@ void print_revcomp(Header const& header, Segment const& seg, ostream& out = std:
 
 int main ()
 {
+   //cpp joules
+   EnergyTracker tracker;
+   tracker.start();
+
   ios_base::sync_with_stdio(false);
 
   Segment line, segment; 
@@ -65,5 +72,9 @@ int main ()
   }
   print_revcomp(header, segment);
 
+  //cpp joules
+  tracker.stop();
+  tracker.calculate_energy();
+  tracker.print_energy();
   return 0;
 }

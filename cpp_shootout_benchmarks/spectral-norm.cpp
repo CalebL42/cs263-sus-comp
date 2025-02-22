@@ -12,6 +12,7 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
+#include<cppJoules.h>
 
 using namespace std;
 
@@ -34,6 +35,10 @@ void eval_AtA_times_u(const vector<double> &u, vector<double> &AtAu)
 
 int main(int argc, char *argv[])
 {
+  //cpp joules
+  EnergyTracker tracker;
+  tracker.start();
+
   int N = ((argc == 2) ? atoi(argv[1]) : 2000);
   vector<double> u(N), v(N);
 
@@ -49,6 +54,11 @@ int main(int argc, char *argv[])
   for(int i=0; i<N; i++) { vBv += u[i]*v[i]; vv += v[i]*v[i]; }
 
   cout << setprecision(10) << sqrt(vBv/vv) << endl;
+
+  //cpp joules
+  tracker.stop();
+  tracker.calculate_energy();
+  tracker.print_energy();
 
   return 0;
 }

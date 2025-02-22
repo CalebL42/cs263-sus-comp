@@ -14,6 +14,8 @@ modified by Branimir Maksimovic
 #include <algorithm>
 #include <vector>
 #include <numeric>
+#include<cppJoules.h>
+
 
 static int const IM = 139968, IA = 3877, IC = 29573;
 static int last = 42;
@@ -123,6 +125,10 @@ static std::vector<IUB> homosapiens =
 
 int main(int argc, char *argv[])
 {
+   //cpp joules
+   EnergyTracker tracker;
+   tracker.start();
+
    unsigned const n = argc > 1 ? atoi(argv[1]) : 1;
 
    makeCumulative(iub);
@@ -131,4 +137,9 @@ int main(int argc, char *argv[])
    make("ONE", "Homo sapiens alu", n*2,Repeat(alu));
    make("TWO", "IUB ambiguity codes", n*3, Random(iub));
    make("THREE", "Homo sapiens frequency", n*5, Random(homosapiens));
+
+   //cpp joules
+   tracker.stop();
+   tracker.calculate_energy();
+   tracker.print_energy();
 }

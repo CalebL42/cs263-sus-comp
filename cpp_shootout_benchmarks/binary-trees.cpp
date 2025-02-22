@@ -65,8 +65,10 @@ int make_iteration(int from,int to,int d,bool thread)
 
 int main(int argc,char *argv[])
 {
+   //cpp joules
    EnergyTracker tracker;
    tracker.start();
+
    int min_depth = 4,
       max_depth = std::max(min_depth+2,
          (argc == 2 ? atoi(argv[1]) : 10)),
@@ -93,6 +95,7 @@ int main(int argc,char *argv[])
    std::cout << "long lived tree of depth " << max_depth << "\t "
       << "check: " << (long_lived_tree->check()) << "\n";
 
+   //cpp joules
    tracker.stop();
    tracker.calculate_energy();
    tracker.print_energy();

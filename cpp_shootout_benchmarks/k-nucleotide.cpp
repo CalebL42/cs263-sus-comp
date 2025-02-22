@@ -15,6 +15,8 @@
 #include <unistd.h>
 #include <vector>
 #include <ext/pb_ds/assoc_container.hpp>
+#include<cppJoules.h>
+
 
 constexpr const unsigned char tochar[8] =
 {
@@ -167,7 +169,13 @@ void write_single_count(unsigned count, const char * string)
 
 int main()
 {
+   //cpp joules
+   EnergyTracker tracker;
+   tracker.start();
+
+
    std::string input;
+
    char buffer[256];
    while (fgets(buffer, 100, stdin) && memcmp(">THREE", buffer, 6) != 0)
    {
@@ -206,5 +214,11 @@ int main()
    write_single_count(GGTATT.get(), "GGTATT");
    write_single_count(GGTATTTTAATT.get(), "GGTATTTTAATT");
    write_single_count(GGTATTTTAATTTATAGT.get(), "GGTATTTTAATTTATAGT");
+
+
+   //cpp joules
+   tracker.stop();
+   tracker.calculate_energy();
+   tracker.print_energy();
 }
     

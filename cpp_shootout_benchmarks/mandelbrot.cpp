@@ -14,6 +14,8 @@
 #include <immintrin.h>
 #include <stdio.h>
 #include <stdint.h>
+#include<cppJoules.h>
+
 
 using namespace std;
 
@@ -158,6 +160,10 @@ namespace {
 
 int main(int argc, char ** argv)
 {
+    //cpp joules
+    EnergyTracker tracker;
+    tracker.start();
+
     // get width/height from arguments
 
     auto wid_ht = 16000;
@@ -202,6 +208,11 @@ int main(int argc, char ** argv)
     printf("P4\n%d %d\n", width, height);
     fwrite(pixels, 1, dataLength, stdout);
     delete[] pixels;
+
+    //cpp joules
+    tracker.stop();
+    tracker.calculate_energy();
+    tracker.print_energy();
 
     return 0;
 }
