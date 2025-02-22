@@ -1,4 +1,4 @@
-package shootout_benchmarks.binary_trees;
+package java_shootout_benchmarks.binary_trees;
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
  

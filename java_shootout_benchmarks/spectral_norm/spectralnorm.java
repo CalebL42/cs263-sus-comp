@@ -1,4 +1,4 @@
-package shootout_benchmarks.spectral_norm;
+package java_shootout_benchmarks.spectral_norm;
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 

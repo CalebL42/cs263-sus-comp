@@ -1,4 +1,4 @@
-package shootout_benchmarks.fasta;
+package java_shootout_benchmarks.fasta;
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 

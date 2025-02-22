@@ -1,4 +1,4 @@
-package shootout_benchmarks.fannkuch_redux;
+package java_shootout_benchmarks.fannkuch_redux;
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 

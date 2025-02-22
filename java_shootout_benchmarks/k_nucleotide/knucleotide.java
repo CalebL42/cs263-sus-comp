@@ -1,4 +1,4 @@
-package shootout_benchmarks.k_nucleotide;
+package java_shootout_benchmarks.k_nucleotide;
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
    

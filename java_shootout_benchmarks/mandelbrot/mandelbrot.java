@@ -1,4 +1,4 @@
-package shootout_benchmarks.mandelbrot;
+package java_shootout_benchmarks.mandelbrot;
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 

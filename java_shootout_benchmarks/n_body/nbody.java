@@ -1,4 +1,4 @@
-package shootout_benchmarks.n_body;
+package java_shootout_benchmarks.n_body;
 /* The Computer Language Benchmarks game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
