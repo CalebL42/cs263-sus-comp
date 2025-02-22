@@ -15,3 +15,8 @@ Test results are generated in the folder joularjx-result
 
 ### Computer Languages Benchmarks Game 
 A large portion of the tests we use came from this project. See https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html for details
+
+### Tests thus far:
+As our first real test, we ran each viable Java test from the shootout benchmark suite 10 times. Raw results are in `joularjx-result/` and summarized in `java_shootout_benchmarks/benchmark_shootout_test1_java.csv`. 
+
+We found that some tests have such short execution times that they range between 0 and 2 joules of power consumption. At that low power consumption, the variance between trials is relatively high, and profiling data is poor. Some tests take a parameter by command line argument, and usually setting those to a large number makes the test take longer. This results in better profiling data and the variance in power consumption is smaller relative to the average. So going forward we'll focus on longer running programs.
