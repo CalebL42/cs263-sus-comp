@@ -1,7 +1,7 @@
 # cs263-sus-comp
 Comparing the sustainability of large software workloads in Java vs C++
 
-We are now moving away form using CPPJoules, and will stick with intel RAPL.
+We are now moving away from using CPPJoules, and will primarily rely on intel RAPL.
 
 JoularJX at https://github.com/joular/joularjx
 
