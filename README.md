@@ -1,7 +1,7 @@
 # cs263-sus-comp
 Comparing the sustainability of large software workloads in Java vs C++
 
-See https://rishalab.github.io/CPPJoules/ for a quick start guide on installing/using CPPJoules.
+We are now moving away from using CPPJoules, and will primarily rely on intel RAPL.
 
 JoularJX at https://github.com/joular/joularjx
 
@@ -20,3 +20,11 @@ A large portion of the tests we use came from this project. See https://benchmar
 As our first real test, we ran each viable Java test from the shootout benchmark suite 10 times. Raw results are in `joularjx-result/` and summarized in `java_shootout_benchmarks/benchmark_shootout_test1_java.csv`. 
 
 We found that some tests have such short execution times that they range between 0 and 2 joules of power consumption. At that low power consumption, the variance between trials is relatively high, and profiling data is poor. Some tests take a parameter by command line argument, and usually setting those to a large number makes the test take longer. This results in better profiling data and the variance in power consumption is smaller relative to the average. So going forward we'll focus on longer running programs.
+
+### Comparing JVMs
+We now also want to compare the power efficiency/memory consumption of different implementations of the JVM, namely:
+- OpenJDK HotSpot VM 	
+- GraalVM CE 	21.0.1 	
+- Oracle GraalVM 	
+- Azul Prime VM 	
+- Eclipse OpenJ9 VM
