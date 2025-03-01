@@ -1,145 +1,84 @@
-/* The Computer Language Benchmarks Game
-https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
+// translated from canonical java version for a more direct comparison
+#include <iostream>
+#include <string>
 
-converted to C++ from D by Rafal Rusin
-modified by Vaclav Haisman
-modified by The Anh to compile with g++ 4.3.2
-modified by Branimir Maksimovic
+static const int IM = 139968;
+static const int IA = 3877;
+static const int IC = 29573;
+static const int SEED = 42;
 
-*/
-
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <algorithm>
-#include <vector>
-#include <numeric>
-#include<cppJoules.h>
-
-
-static int const IM = 139968, IA = 3877, IC = 29573;
-static int last = 42;
-
-static inline
-float
-genRandom(float max)
-{
-   return(max * (last = (last * IA + IC) % IM) / IM);
+static int seed = SEED;
+static double fastaRand(double max) {
+    seed = (seed * IA + IC) % IM;
+    return max * seed / IM;
 }
 
-struct IUB
-{
-   char c;
-   float p;
-};
+static const std::string ALU =
+    "GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG"
+    "GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA"
+    "CCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAAT"
+    "ACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCA"
+    "GCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGG"
+    "AGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCC"
+    "AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA";
 
-static inline
-void
-makeCumulative(std::vector<IUB>& i)
-{
-   std::partial_sum (i.begin(), i.end(), i.begin(), 
-   [](IUB l,IUB r)->IUB{r.p+=l.p;return r;});
+static const std::string iub = "acgtBDHKMNRSVWY";
+static const double iubP[] = {
+    0.27, 0.12, 0.12, 0.27,
+    0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02};
+
+static const std::string homosapiens = "acgt";
+static const double homosapiensP[] = {
+    0.3029549426680,
+    0.1979883004921,
+    0.1975473066391,
+    0.3015094502008};
+
+static const int LINELEN = 60;
+
+static void repeatFasta(const std::string& seq, int n) {
+    int len = seq.length();
+    std::string b;
+    for (int i = 0; i < n; i++) {
+        b += seq[i % len];
+        if (i % LINELEN == LINELEN - 1) {
+            std::cout << b << std::endl;
+            b.clear();
+        }
+    }
+    if (!b.empty()) std::cout << b << std::endl;
 }
 
-static const char alu[] =
-"GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG"
-"GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA"
-"CCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAAT"
-"ACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCA"
-"GCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGG"
-"AGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCC"
-"AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA";
-
-static const unsigned length = 60;
-
-template <class F>
-static inline
-void
-make(char const * id, char const * desc, unsigned n, F f)
-{
-   printf(">%s %s\n", id, desc);
-   char line[length+1]={0};
-   unsigned i = 0;
-   while(n-- > 0)
-   {
-      line[i++]=f();
-      if(i >= length)
-      {
-         puts(line);
-         i = 0;
-      }
-   }
-   line[i] = 0;
-   if(strlen(line))puts(line);
+static void randomFasta(const std::string& seq, const double* probability, int n) {
+    int len = seq.length();
+    int i, j;
+    std::string b;
+    for (i = 0; i < n; i++) {
+        double v = fastaRand(1.0);
+        for (j = 0; j < len - 1; j++) {
+            v -= probability[j];
+            if (v < 0) break;
+        }
+        b += seq[j];
+        if (i % LINELEN == LINELEN - 1) {
+            std::cout << b << std::endl;
+            b.clear();
+        }
+    }
+    if (!b.empty()) std::cout << b << std::endl;
 }
 
-struct Repeat{
-   Repeat(const char* alu):i(0),size(strlen(alu)),alu(alu){}
-   char operator()()
-   { 
-      if(i >= size)i=0;
-      return alu[i++];
-   }
-   unsigned i,size;
-   const char* alu;
-};
-
-struct Random{
-   Random(std::vector<IUB>& i):i(i){}
-   char operator()()
-   {
-      float p = genRandom(1.0);
-      return i[std::count_if(i.begin(),i.end(),
-            [p](IUB i){ return p>=i.p;})].c;
-   }
-   std::vector<IUB>& i;
-};
-
-static std::vector<IUB> iub =
-{
-   { 'a', 0.27 },
-   { 'c', 0.12 },
-   { 'g', 0.12 },
-   { 't', 0.27 },
-
-   { 'B', 0.02 },
-   { 'D', 0.02 },
-   { 'H', 0.02 },
-   { 'K', 0.02 },
-   { 'M', 0.02 },
-   { 'N', 0.02 },
-   { 'R', 0.02 },
-   { 'S', 0.02 },
-   { 'V', 0.02 },
-   { 'W', 0.02 },
-   { 'Y', 0.02 }
-};
-
-static std::vector<IUB> homosapiens =
-{
-   { 'a', 0.3029549426680 },
-   { 'c', 0.1979883004921 },
-   { 'g', 0.1975473066391 },
-   { 't', 0.3015094502008 }
-};
-
-int main(int argc, char *argv[])
-{
-   //cpp joules
-   EnergyTracker tracker;
-   tracker.start();
-
-   unsigned const n = argc > 1 ? atoi(argv[1]) : 1;
-
-   makeCumulative(iub);
-   makeCumulative(homosapiens);
-   
-   make("ONE", "Homo sapiens alu", n*2,Repeat(alu));
-   make("TWO", "IUB ambiguity codes", n*3, Random(iub));
-   make("THREE", "Homo sapiens frequency", n*5, Random(homosapiens));
-
-   //cpp joules
-   tracker.stop();
-   tracker.calculate_energy();
-   tracker.print_energy();
+int main(int argc, char* argv[]) {
+    const int n = (argc > 1) ? std::stoi(argv[1]) : 1000;
+    
+    std::cout << ">ONE Homo sapiens alu" << std::endl;
+    repeatFasta(ALU, n * 2);
+    
+    std::cout << ">TWO IUB ambiguity codes" << std::endl;
+    randomFasta(iub, iubP, n * 3);
+    
+    std::cout << ">THREE Homo sapiens frequency" << std::endl;
+    randomFasta(homosapiens, homosapiensP, n * 5);
+    
+    return 0;
 }

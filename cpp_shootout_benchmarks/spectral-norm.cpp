@@ -1,64 +1,62 @@
-// The Computer Language Benchmarks Game
-// https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
-//
-// Original C contributed by Sebastien Loisel
-// Conversion to C++ by Jon Harrop
-// Compile: g++ -O3 -o spectralnorm spectralnorm.cpp
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <cmath>
-#include <vector>
+// translated from canonical java version for a more direct comparison
 #include <iostream>
 #include <iomanip>
-#include<cppJoules.h>
+#include <string>
 
-using namespace std;
+class SpectralNorm {
+public:
+    double eval_A(int i, int j) {
+        return 1.0 / ((i + j) * (i + j + 1) / 2 + i + 1);
+    }
 
-double eval_A(int i, int j) { return 1.0 / ((i+j)*(i+j+1)/2 + i + 1); }
+    void eval_A_times_u(int N, const double* u, double* Au) {
+        int i, j;
+        for (i = 0; i < N; i++) {
+            Au[i] = 0;
+            for (j = 0; j < N; j++) {
+                Au[i] += eval_A(i, j) * u[j];
+            }
+        }
+    }
 
-void eval_A_times_u(const vector<double> &u, vector<double> &Au)
-{
-  for(int i=0; i<u.size(); i++)
-    for(int j=0; j<u.size(); j++) Au[i] += eval_A(i,j) * u[j];
-}
+    void eval_At_times_u(int N, const double* u, double* Au) {
+        int i, j;
+        for (int i = 0; i < N; i++) {
+            Au[i] = 0;
+            for (j = 0; j < N; j++) {
+                Au[i] += eval_A(j, i) * u[j];
+            }
+        }
+    }
 
-void eval_At_times_u(const vector<double> &u, vector<double> &Au)
-{
-  for(int i=0; i<u.size(); i++)
-    for(int j=0; j<u.size(); j++) Au[i] += eval_A(j,i) * u[j];
-}
+    void eval_AtA_times_u(int N, const double* u, double* AtAu) {
+        double* v = new double[N]; 
+        eval_A_times_u(N, u, v);
+        eval_At_times_u(N, v, AtAu);
+    }
+};
 
-void eval_AtA_times_u(const vector<double> &u, vector<double> &AtAu)
-{ vector<double> v(u.size()); eval_A_times_u(u, v); eval_At_times_u(v, AtAu); }
-
-int main(int argc, char *argv[])
-{
-  //cpp joules
-  EnergyTracker tracker;
-  tracker.start();
-
-  int N = ((argc == 2) ? atoi(argv[1]) : 2000);
-  vector<double> u(N), v(N);
-
-  fill(u.begin(), u.end(), 1);
-
-  for(int i=0; i<10; i++) {
-    eval_AtA_times_u(u, v);
-    fill(u.begin(), u.end(), 0);
-    eval_AtA_times_u(v, u);
-  }
-
-  double vBv=0, vv=0;
-  for(int i=0; i<N; i++) { vBv += u[i]*v[i]; vv += v[i]*v[i]; }
-
-  cout << setprecision(10) << sqrt(vBv/vv) << endl;
-
-  //cpp joules
-  tracker.stop();
-  tracker.calculate_energy();
-  tracker.print_energy();
-
-  return 0;
+int main(int argc, char* argv[]) {
+    int i;
+    static int N = (argc > 1) ? std::stoi(argv[1]) : 100;
+    SpectralNorm nonStatic;
+    double* u = new double[N];
+    double* v = new double[N];
+    double vBv, vv;
+    // std::vector<double> u(N, 1.0);
+    // std::vector<double> v(N);
+    for (i = 0; i < N; i++) {u[i] = 1; v[i] = 0;}
+    for (i = 0; i < 10; i++) {
+        nonStatic.eval_AtA_times_u(N, u, v);
+        nonStatic.eval_AtA_times_u(N, v, u);
+    }
+    vBv = vv = 0;
+    
+    for (i = 0; i < N; i++) {
+        vBv += u[i] * v[i];
+        vv += v[i] * v[i];
+    }
+    
+    std::cout << std::fixed << std::setprecision(9) << std::sqrt(vBv / vv) << std::endl;
+    return 0;
 }
