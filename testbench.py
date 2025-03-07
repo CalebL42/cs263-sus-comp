@@ -1,6 +1,8 @@
 # Helper to run perf commands multiple times and record output
 import subprocess
 import re
+import time
+import statistics
 
 # get the joules consumed for the specified event and command, as well as the time elapsed in seconds
 def run_perf(event, command):
@@ -15,6 +17,38 @@ def run_perf(event, command):
     return {"joules": joules, 
             "seconds": seconds}
 
+# get the joules and duration for the specified event and command. run multiple times, with a delay between
+# trials to let the cpu slow down again before the next test.
+def run_perfs(event, command, times, delay):
+    d = {}
+    for i in range(times):
+        d[i] = run_perf(event, command)
+        time.sleep(delay)
+    return d
+
+# given a dictionary of trials, each with joules and duration, return a new dictionary that includes 
+# the average and standard deviation of joules and duration
+def get_stats(d):
+    joules = []
+    seconds = []
+    print(d)
+    for entry in d:
+        print(d[entry])
+        joules.append(d[entry]["joules"])
+        seconds.append(d[entry]["seconds"])
+    
+    stat_dict = {"avg": {
+                    "joules": statistics.mean(joules),
+                    "seconds": statistics.mean(seconds)}, 
+                 "stddev": {
+                    "joules": statistics.stdev(joules),
+                    "seconds": statistics.stdev(seconds)}
+                }
+    return {**d, **stat_dict}
 
 
-run_perf("power/energy-pkg/", ["sleep", "1"])
+
+
+res = run_perfs("power/energy-pkg/", ["sleep", "1"], 5, 1)
+res = get_stats(res)
+print(res)
