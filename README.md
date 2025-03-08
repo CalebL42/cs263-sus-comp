@@ -22,9 +22,14 @@ As our first real test, we ran each viable Java test from the shootout benchmark
 We found that some tests have such short execution times that they range between 0 and 2 joules of power consumption. At that low power consumption, the variance between trials is relatively high, and profiling data is poor. Some tests take a parameter by command line argument, and usually setting those to a large number makes the test take longer. This results in better profiling data and the variance in power consumption is smaller relative to the average. So going forward we'll focus on longer running programs.
 
 ### Comparing JVMs
-We now also want to compare the power efficiency/memory consumption of different implementations of the JVM, namely:
+We compare the power efficiency/memory consumption of different implementations of the JVM, namely:
 - OpenJDK HotSpot VM 	
 - GraalVM CE 	21.0.1 	
 - Oracle GraalVM 	
 - Azul Prime VM 	
 - Eclipse OpenJ9 VM
+
+### Comparing performance on Datacenter common tasks
+We compare the power efficiency/memory consumption of Java and C++ on web servicing tasks, namely http requests/responses.
+For C++ we are using Drogon to create a basic web server program: https://github.com/drogonframework/drogon
+For Java we are using the built in HTTP Server Class.
