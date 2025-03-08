@@ -29,7 +29,7 @@ We compare the power efficiency/memory consumption of different implementations 
 - Azul Prime VM 	
 - Eclipse OpenJ9 VM
 
-### Comparing performance on Datacenter common tasks
+### Comparing performance on common datacenter tasks
 We compare the power efficiency/memory consumption of Java and C++ on web servicing tasks, namely http requests/responses.
 For C++ we are using Drogon to create a basic web server program: https://github.com/drogonframework/drogon.
 For Java we are using the built in HTTP Server Class.
