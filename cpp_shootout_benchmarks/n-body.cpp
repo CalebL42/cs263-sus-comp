@@ -3,6 +3,7 @@
 #include <vector>
 #include <iomanip>
 #include <string>
+#include <cmath>
 
 struct Body {
     double x, y, z, vx, vy, vz, mass;

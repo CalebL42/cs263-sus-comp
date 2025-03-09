@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <cmath>
 
 class SpectralNorm {
 public:
