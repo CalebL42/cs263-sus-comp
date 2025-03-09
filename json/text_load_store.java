@@ -4,7 +4,10 @@ import java.nio.file.Paths;
 
 public class text_load_store {
     public static void main(String[] args) throws IOException {
-        String content = Files.readString(Paths.get("timeseries.json"));
-        Files.writeString(Paths.get("java_out.txt"), content);
+        String load_path = "random" + args[0] + ".json";
+        String store_path = "java_out_" + args[0] + ".txt";
+
+        String content = Files.readString(Paths.get(load_path));
+        Files.writeString(Paths.get(store_path), content);
     }
 }

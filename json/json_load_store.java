@@ -5,12 +5,11 @@ import java.io.IOException;
 
 public class json_load_store {
     public static void main(String[] args) throws IOException {
+        String load_path = "random" + args[0] + ".json";
+        String store_path = "java_out_" + args[0] + ".json";
+
         ObjectMapper objectMapper = new ObjectMapper();
-
-        // load data
-        JsonNode jsonNode = objectMapper.readTree(new File("timeseries.json"));
-
-        // save data
-        objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("java_out.json"), jsonNode);
+        JsonNode jsonNode = objectMapper.readTree(new File(load_path));
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(store_path), jsonNode);
     }
 }
