@@ -1,3 +1,5 @@
+package matmul;
+
 public class matmul {
 
     // generate a square matrix of given size with values starting from 'start'
@@ -26,17 +28,15 @@ public class matmul {
         return prod;
     }
 
-    // print the full matrix
-    public static void printMatrix(int[][] matrix, int size) {
-        System.out.println("[");
+    // sum the full matrix
+    public static long sumMatrix(int[][] matrix, int size) {
+        long sum = 0;
         for (int i = 0; i < size; i++) {
-            System.out.print(" [");
             for (int j = 0; j < size; j++) {
-                System.out.print(matrix[i][j] + " ");
+                sum += matrix[i][j];
             }
-            System.out.println("]");
         }
-        System.out.println("]");
+        return sum;
     }
 
     public static void main(String[] args) {
@@ -44,8 +44,9 @@ public class matmul {
 
         int[][] m1 = generate(n, 0);
         int[][] m2 = generate(n, n);
-
         int[][] prod = matMul(m1, m2, n);
-        printMatrix(prod, n);
+
+        long sum = sumMatrix(prod, n);
+        System.out.println(sum);
     }
 }

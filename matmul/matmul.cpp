@@ -28,26 +28,25 @@ vector<vector<int>> mat_mul(vector<vector<int>>& m1, vector<vector<int>>& m2, in
     return prod;
 }
 
-// print the full matrix
-void print_matrix(vector<vector<int>>& matrix, int size) {
-    cout << "[\n";
+// sum the full matrix
+long long sum_matrix(vector<vector<int>>& matrix, int size) {
+    long long sum = 0;
     for (int i = 0; i < size; i++) {
-        cout << " [";
         for (int j = 0; j < size; j++) {
-            cout << matrix[i][j] << " ";
+            sum += matrix[i][j];
         }
-        cout << "]\n";
     }
-    cout << "]\n";
+    return sum;
 }
 
 int main(int argc, char* argv[]) {
     int n = (argc > 1) ? std::stoi(argv[1]) : 10;
     vector<vector<int>> m1 = generate(n, 0);
     vector<vector<int>> m2 = generate(n, n);
-
     vector<vector<int>> prod = mat_mul(m1, m2, n);
-    print_matrix(prod, n);
+
+    long long sum = sum_matrix(prod, n);
+    cout << sum << endl;
     
     return 0;
 }
