@@ -3,16 +3,16 @@ import subprocess
 import re
 import time
 import statistics
+import json
+
 
 # get the joules consumed for the specified event and command, as well as the time elapsed in seconds
 def run_perf(event, command):
     result = subprocess.run(["perf", "stat", "-a", "-e", event] + command, capture_output=True, text=True)
     result = result.stderr # not sure why it prints to stderr and not stdout
-    [joules, seconds] = [float(val) for val in re.findall(r'\-?[0-9.]+', result)]
-    
-    print(joules, type(joules))
-    print(seconds, type(seconds))
     print(result)
+
+    [joules, seconds] = [float(val) for val in re.findall(r'\-?[0-9.]+', result)]
 
     return {"joules": joules, 
             "seconds": seconds}
@@ -46,9 +46,13 @@ def get_stats(d):
                 }
     return {**d, **stat_dict}
 
+def write_json(d, filename):
+    json_str = json.dumps(d)
+    with open(filename, 'w') as f:
+        f.write(json_str)
 
 
-
-res = run_perfs("power/energy-pkg/", ["sleep", "1"], 5, 1)
+res = run_perfs("power/energy-pkg/", ["sleep", "1"], times=5, delay=1)
 res = get_stats(res)
 print(res)
+write_json(res, "temp.txt")
