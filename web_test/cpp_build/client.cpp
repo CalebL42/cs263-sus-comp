@@ -73,8 +73,8 @@ int main(int argc, char* argv[]) {
     //std::string host = "localhost";
     std::string host = "192.168.0.54"; // IP address of the server
     int port = 8080;
-    int num_clients = 1;
-    int requests_per_client = 200;
+    int num_clients = 50;
+    int requests_per_client = 100;
     int delay_ms = 0;
     
     // Parse command line arguments if provided

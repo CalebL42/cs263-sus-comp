@@ -22,8 +22,8 @@ class client {
 
     public static void main(String[] args) throws InterruptedException {
         String host = "http://192.168.0.54:8080";
-        List<String> paths = Arrays.asList("/index.html", "/images/amogus.png", "/images/pumpkin.jpg", "/js/script.js", "/css/style.css", "/index.html");
-        int numClients = 1;
+        List<String> paths = Arrays.asList("/index.html", "/images/amogus.png", "/images/pumpkin.jpg", "/js/script.js", "/css/style.css");
+        int numClients = 50;
         int requestsPerClient = 100;
         int delayMs = 500;
         
