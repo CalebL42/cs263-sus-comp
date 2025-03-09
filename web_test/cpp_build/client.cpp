@@ -27,7 +27,7 @@ void client_simulator(const std::string& host, int port,
     cli.set_connection_timeout(5, 0); 
     cli.set_read_timeout(10, 0);
 
-    //reuse HTTP connections
+    //reuse HTTP connection
     cli.set_keep_alive(true); 
     
     for (int i = 0; i < num_requests; i++) {
@@ -71,7 +71,7 @@ void client_simulator(const std::string& host, int port,
 int main(int argc, char* argv[]) {
     // Default parameters
     //std::string host = "localhost";
-    std::string host = "169.231.165.102"; // IP address of the server
+    std::string host = "192.168.0.54"; // IP address of the server
     int port = 8080;
     int num_clients = 1;
     int requests_per_client = 200;

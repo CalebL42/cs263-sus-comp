@@ -7,7 +7,7 @@ int main() {
     httplib::Server svr;
     
     // Set up a directory with your test files
-    const std::string static_dir = "./www";  // Create this directory with test files
+    const std::string static_dir = "../www";  // Create this directory with test files
     
     // Mount the static directory to be served at the root URL
     auto success = svr.set_mount_point("/", static_dir);
