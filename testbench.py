@@ -7,6 +7,7 @@ import statistics
 import json
 import sys
 
+testbench_log = open("testbench_log.txt", "w")
 
 # get the joules consumed for the specified event and command, as well as the time elapsed in seconds
 def run_perf(event, command):
@@ -15,10 +16,19 @@ def run_perf(event, command):
     result = result.stderr # not sure why it prints to stderr and not stdout
     print(result)
 
-    [joules, seconds] = [float(val) for val in re.findall(r'\-?[0-9.]+', result)]
+    result_list = result.split()
+    trimmed_list = []
+    for res in result_list:
+        try:
+            trimmed_list.append(float(res))
+        except ValueError:
+            continue
+    print(trimmed_list)
+    if len(trimmed_list) != 2:
+        testbench_log.write(f"Wrong amount of numbers for perf to return. Data likely recorded incorrectly. (result was {trimmed_list})")
 
-    return {"joules": joules, 
-            "seconds": seconds}
+    return {"joules": trimmed_list[0], 
+            "seconds": trimmed_list[1]}
 
 # get the joules and duration for the specified event and command. run multiple times, with a delay between
 # trials to let the cpu slow down again before the next test.
@@ -109,7 +119,8 @@ def test_matmul(starting_size, iters, times, delay):
     write_json(java_executions, base_filepath + "java_exec.json")
 
 
-test_matmul(128, 5, 10, 0)
+test_matmul(2028, 5, 10, 0)
+testbench_log.close()
 # # output_file = "testbench_outputs/" + sys.argv[1] + ".json"
 # res = run_perfs("power/energy-pkg/", ["sleep", "1"], times=5, delay=1)
 # res = get_stats(res)
