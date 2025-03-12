@@ -1,4 +1,4 @@
-package java_shootout_benchmarks.fannkuch_redux;
+package tests.shootout_fannkuch_redux;
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
@@ -6,7 +6,7 @@ package java_shootout_benchmarks.fannkuch_redux;
    contributed by Isaac Gouy 
 */
 
-public final class fannkuchredux {
+public final class shootout_fannkuch_redux {
     public static int fannkuch(int n) {
        var perm1 = new int[n];   
        for (int i = 0; i < n; i++) perm1[i] = i;      

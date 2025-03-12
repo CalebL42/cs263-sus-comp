@@ -1,4 +1,4 @@
-package java_shootout_benchmarks.n_body;
+package tests.shootout_n_body;
 /* The Computer Language Benchmarks game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
@@ -21,7 +21,7 @@ final class Body {
    } 
 }   
 
-public final class nbody {
+public final class shootout_n_body {
    static double PI = 3.141592653589793;   
    static double SOLAR_MASS = 4 * PI * PI;
    static double DAYS_PER_YEAR = 365.24;

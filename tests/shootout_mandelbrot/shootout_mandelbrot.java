@@ -1,4 +1,4 @@
-package java_shootout_benchmarks.mandelbrot;
+package tests.shootout_mandelbrot;
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
@@ -6,7 +6,7 @@ package java_shootout_benchmarks.mandelbrot;
 */
 
 
-class mandelbrot {
+class shootout_mandelbrot {
 
     public static void main(String[] args) {   
      

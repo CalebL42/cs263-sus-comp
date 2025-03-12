@@ -84,18 +84,18 @@ def write_json(d, filename: str):
 # given a test and g++ optimization flag, compile a c++ program `times` times
 def compile_cpp(test_name, times=10, delay=0, flag="", comp="gpp"):
     comp = cpp_bin[comp]
-    cpp_comp_cmd = [comp, f"{test_name}/{test_name}.cpp", "-o", f"{test_name}/{test_name}{flag}", flag]
+    cpp_comp_cmd = [comp, f"tests/{test_name}/{test_name}.cpp", "-o", f"tests/{test_name}/{test_name}{flag}", flag]
     return get_stats(run_perfs("power/energy-pkg/", cpp_comp_cmd, times, delay))
 
 # given a test, compile a java program `times` times
 def compile_java(test_name, times=10, delay=0, jit="openjdk"):
     javac = java_bin[jit] + "javac"
-    java_comp_cmd = [javac, f"{test_name}/{test_name}.java"]
+    java_comp_cmd = [javac, f"tests/{test_name}/{test_name}.java"]
     return get_stats(run_perfs("power/energy-pkg/", java_comp_cmd, times, delay))
 
 # given a test, a g++ optimization flag, and an optional test parameter, run a c++ program `times` times
 def run_test_cpp(test_name, flag, times, delay, size=0):
-    command = [f"./{test_name}/{test_name}{flag}"]
+    command = [f"./tests/{test_name}/{test_name}{flag}"]
     if size > 0:
         command.append(str(size))
     return get_stats(run_perfs("power/energy-pkg/", command, times, delay))
@@ -103,7 +103,7 @@ def run_test_cpp(test_name, flag, times, delay, size=0):
 # given a test, a set of java optimization flags, and an optional test parameter, run a java program `times` times
 def run_test_java(test_name, flag_number, times, delay, size, jit):
     java = java_bin[jit] + "java"
-    command = [java] + java_exec_flags[flag_number] + [f"{test_name}.{test_name}"]
+    command = [java] + java_exec_flags[flag_number] + [f"tests.{test_name}.{test_name}"]
     if size > 0:
         command.append(str(size))
     return get_stats(run_perfs("power/energy-pkg/", command, times, delay))

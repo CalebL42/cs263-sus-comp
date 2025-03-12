@@ -1,4 +1,4 @@
-package java_shootout_benchmarks.spectral_norm;
+package tests.shootout_spectral_norm;
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
@@ -6,7 +6,7 @@ package java_shootout_benchmarks.spectral_norm;
    contributed by Isaac Gouy
 */
 
-public final class spectralnorm
+public final class shoutout_spectral_norm
 {
   double eval_A(int i, int j) { return 1.0/((i+j)*(i+j+1)/2+i+1); }   
    
@@ -37,7 +37,7 @@ public final class spectralnorm
   {
     int i;    
     final int N = args.length > 0 ? Integer.parseInt(args[0]) : 100; 
-    var nonStatic = new spectralnorm();
+    var nonStatic = new shoutout_spectral_norm();
     var u = new double[N];      
     var v = new double[N];  
     double vBv, vv;        

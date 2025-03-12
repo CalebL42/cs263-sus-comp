@@ -1,4 +1,4 @@
-package matmul;
+package tests.matmul;
 
 public class matmul {
 

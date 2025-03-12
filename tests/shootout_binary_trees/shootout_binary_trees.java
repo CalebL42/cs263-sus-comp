@@ -1,4 +1,4 @@
-package java_shootout_benchmarks.binary_trees;
+package tests.shootout_binary_trees;
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
  
@@ -35,7 +35,7 @@ final class Tree {
     }   
  }
  
- final class binarytrees {   
+ final class shootout_binary_trees {   
     public static void main(String[] args){
        int n = 10;
        if (args.length > 0) n = Integer.parseInt(args[0]);

@@ -1,10 +1,12 @@
+package tests.multithread_primes;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class CpuStressTest {
+public class multithread_primes {
     private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
     private static final int MAX_NUMBER = 100000000;  
     private static final AtomicInteger primeCount = new AtomicInteger(0);
