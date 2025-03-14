@@ -7,8 +7,8 @@ import java.io.IOException;
 
 public class json_io {
     public static void main(String[] args) throws IOException {
-        String load_path = "../../json/random" + args[0] + ".json";
-        String store_path = "../../json/java_out_" + args[0] + ".json";
+        String load_path = "json/random" + args[0] + ".json";
+        String store_path = "json/java_out_" + args[0] + ".json";
 
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(new File(load_path));

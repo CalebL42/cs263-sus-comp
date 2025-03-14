@@ -5,8 +5,8 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
     string file_data;
-    string load_path = "../../json/random" + string(argv[1]) + ".json";
-    string store_path = "../../json/cpp_out_" + string(argv[1]) + ".txt";
+    string load_path = "json/random" + string(argv[1]) + ".json";
+    string store_path = "json/cpp_out_" + string(argv[1]) + ".txt";
 
     // load data
     ifstream read_file(load_path);
