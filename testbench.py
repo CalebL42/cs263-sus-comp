@@ -196,6 +196,7 @@ test_command_with_arg("json_io", starting_size=128, iters=4, iter_type="mult",
 test_command_with_arg("multithread_primes", starting_size=0, iters=1, iter_type="add",
                       iter_factor=0, times=times, delay=delay)
 # test_command_with_arg("web_server") # how to do?
+test_command_with_arg("client", starting_size=0, iters=1, iter_type="add", iter_factor=0, times=times, delay=delay)
 testbench_log.close()
 # # output_file = "testbench_outputs/" + sys.argv[1] + ".json"
 # res = run_perfs("power/energy-pkg/", ["sleep", "1"], times=5, delay=1)
