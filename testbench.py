@@ -1,11 +1,9 @@
 # Helper to run perf commands multiple times and record output
 import os
 import subprocess
-import re
 import time
 import statistics
 import json
-import sys
 
 cpp_comp_flags = ["-O0", "-O1", "-O2", "-O3"]
 java_exec_flags = [["-Xint"],
@@ -196,7 +194,8 @@ test_command_with_arg("json_io", starting_size=128, iters=4, iter_type="mult",
 test_command_with_arg("multithread_primes", starting_size=0, iters=1, iter_type="add",
                       iter_factor=0, times=times, delay=delay)
 # test_command_with_arg("web_server") # how to do?
-test_command_with_arg("client", starting_size=0, iters=1, iter_type="add", iter_factor=0, times=times, delay=delay)
+test_command_with_arg("client", starting_size=0, iters=1, iter_type="add", iter_factor=0, times=times, delay=30)
+test_command_with_arg("server", starting_size=0, iters=1, iter_type="add", iter_factor=0, times=times, delay=30)
 testbench_log.close()
 # # output_file = "testbench_outputs/" + sys.argv[1] + ".json"
 # res = run_perfs("power/energy-pkg/", ["sleep", "1"], times=5, delay=1)
