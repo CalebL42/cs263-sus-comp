@@ -22,9 +22,15 @@ testbench_log = open("testbench_log.txt", "w")
 
 
 # get the joules consumed for the specified event and command, as well as the time elapsed in seconds
-def run_perf(event, command):
-    print(command)
-    result = subprocess.run(["perf", "stat", "-a", "-e", event] + command, stderr=subprocess.PIPE, text=True)
+def run_perf(event, command, timeout=0):
+    if timeout == 0:
+        print(command)
+    else:
+        print(command, f"timeout={timeout}")
+    base = ["perf", "stat", "-a", "-e", event]
+    if timeout > 0:
+        base.append(f"--timeout={int(1000*timeout)}")
+    result = subprocess.run(base + command, stderr=subprocess.PIPE, text=True)
     result = result.stderr # not sure why it prints to stderr and not stdout
     print(result)
 
@@ -44,11 +50,11 @@ def run_perf(event, command):
 
 # get the joules and duration for the specified event and command. run multiple times, with a delay between
 # trials to let the cpu slow down again before the next test.
-def run_perfs(event, command, times, delay):
+def run_perfs(event, command, times, delay, timeout=0):
     d = {}
     for i in range(times):
         print(i+1)
-        d[i] = run_perf(event, command)
+        d[i] = run_perf(event, command, timeout)
         time.sleep(delay)
     return d
 
@@ -80,42 +86,61 @@ def write_json(d, filename: str):
         f.write(json_str) 
 
 # given a test and g++ optimization flag, compile a c++ program `times` times
-def compile_cpp(test_name, times=10, delay=0, flag="", comp="gpp"):
+def compile_cpp(test_name, times=10, delay=0, flag="", comp="gpp", timeout=0):
     comp = cpp_bin[comp]
     cpp_comp_cmd = [comp, f"tests/{test_name}/{test_name}.cpp", "-o", f"tests/{test_name}/{test_name}{flag}", flag]
-    return get_stats(run_perfs("power/energy-pkg/", cpp_comp_cmd, times, delay))
+    
+    res = get_stats(run_perfs("power/energy-pkg/", cpp_comp_cmd, times, delay, timeout))
+    if times == 1:
+        return res
+    else:
+        return get_stats(res)
 
 # given a test, compile a java program `times` times
-def compile_java(test_name, times=10, delay=0, jit="openjdk", extra_flags=[]):
+def compile_java(test_name, times=10, delay=0, jit="openjdk", extra_flags=[], timeout=0):
     javac = java_bin[jit] + "javac"
     java_comp_cmd = [javac] + extra_flags + [f"tests/{test_name}/{test_name}.java"]
-    return get_stats(run_perfs("power/energy-pkg/", java_comp_cmd, times, delay))
+
+    res = get_stats(run_perfs("power/energy-pkg/", java_comp_cmd, times, delay, timeout))
+    if times == 1:
+        return res
+    else:
+        return get_stats(res)
 
 # given a test, a g++ optimization flag, and an optional test parameter, run a c++ program `times` times
-def run_test_cpp(test_name, flag, times, delay, size=0):
+def run_test_cpp(test_name, flag, times, delay, size=0, timeout=0):
     command = [f"./tests/{test_name}/{test_name}{flag}"]
     if size > 0:
         command.append(str(size))
-    return get_stats(run_perfs("power/energy-pkg/", command, times, delay))
+    res = get_stats(run_perfs("power/energy-pkg/", command, times, delay, timeout))
+    if times == 1:
+        return res
+    else:
+        return get_stats(res)
 
 # given a test, a set of java optimization flags, and an optional test parameter, run a java program `times` times
-def run_test_java(test_name, flag_number, times, delay, size, jit, extra_flags=[]):
+def run_test_java(test_name, flag_number, times, delay, size, jit, extra_flags=[], timeout=0):
     java = java_bin[jit] + "java"
     command = [java] + extra_flags + java_exec_flags[flag_number] + [f"tests.{test_name}.{test_name}"]
     if size > 0:
         command.append(str(size))
-    return get_stats(run_perfs("power/energy-pkg/", command, times, delay))
+    
+    res = run_perfs("power/energy-pkg/", command, times, delay, timeout)
+    if times == 1:
+        return res
+    else:
+        return get_stats(res)
 
 # given a test, a list of g++ optimization flags, a starting size, and a desired number of iterations,
 # run the test `times` times for every flag value at `iters` different sizes that double each time.
 # (starting_size, 2*starting_size, ..., 2^(iters-1)*starting_size)
-def run_full_cpp(test_name, starting_size, iters, iter_type, iter_factor, flags, times, delay):
+def run_full_cpp(test_name, starting_size, iters, iter_type, iter_factor, flags, times, delay, timeout=0):
     cpp_executions = {}
     for flag in flags:
         size = starting_size
         cpp_executions[flag] = {}
         for _ in range(iters):
-            cpp_executions[flag][size] = run_test_cpp(test_name, flag, times, delay, size)
+            cpp_executions[flag][size] = run_test_cpp(test_name, flag, times, delay, size, timeout)
             if iter_type == "add":
                 size += iter_factor
             elif iter_type == "mult":
@@ -125,13 +150,13 @@ def run_full_cpp(test_name, starting_size, iters, iter_type, iter_factor, flags,
 # given a test, a list of java optimization flag sets, a starting size, and a desired number of iterations,
 # run the test `times` times for every flag value at `iters` different sizes that double each time.
 # (starting_size, 2*starting_size, ..., 2^(iters-1)*starting_size)
-def run_full_java(test_name, starting_size, iters, iter_type, iter_factor, flags, times, delay, jit, extra_flags):
+def run_full_java(test_name, starting_size, iters, iter_type, iter_factor, flags, times, delay, jit, extra_flags, timeout=0):
     java_executions = {}
     for flag_index in range(len(flags)):
         size = starting_size
         java_executions["flag" + str(flag_index)] = {}
         for _ in range(iters):
-            java_executions["flag" + str(flag_index)][size] = run_test_java(test_name, flag_index, times, delay, size, jit, extra_flags)
+            java_executions["flag" + str(flag_index)][size] = run_test_java(test_name, flag_index, times, delay, size, jit, extra_flags, timeout)
             if iter_type == "add":
                 size += iter_factor
             elif iter_type == "mult":
@@ -141,23 +166,23 @@ def run_full_java(test_name, starting_size, iters, iter_type, iter_factor, flags
 # template function for testing c++/java programs that take a single command line argument, 
 # usually a size of some kind. record the duration and energy usage of the test over several trials
 # for c++ and java )openjdk and graal) for a range of compilation levels and argument values
-def test_command_with_arg(test_name, starting_size, iters, iter_type, iter_factor, times, delay, extra_java_comp_flags=[], extra_java_exec_flags=[]):
+def test_command_with_arg(test_name, starting_size, iters, iter_type, iter_factor, times, delay, extra_java_comp_flags=[], extra_java_exec_flags=[], timeout=0):
 
     gpp_compilations = {}
     for flag in cpp_comp_flags:
         gpp_compilations[flag] = compile_cpp(test_name, times, delay, flag, "gpp")
-    gpp_executions = run_full_cpp(test_name, starting_size, iters, iter_type, iter_factor, cpp_comp_flags, times, delay)
+    gpp_executions = run_full_cpp(test_name, starting_size, iters, iter_type, iter_factor, cpp_comp_flags, times, delay, timeout)
 
     clang_compilations = {}
     for flag in cpp_comp_flags:
         clang_compilations[flag] = compile_cpp(test_name, times, delay, flag, "clang")
-    clang_executions = run_full_cpp(test_name, starting_size, iters, iter_type, iter_factor, cpp_comp_flags, times, delay)
+    clang_executions = run_full_cpp(test_name, starting_size, iters, iter_type, iter_factor, cpp_comp_flags, times, delay, timeout)
 
     openjdk_compilations = compile_java(test_name, times, delay, "openjdk", extra_java_comp_flags)
-    openjdk_executions = run_full_java(test_name, starting_size, iters, iter_type, iter_factor, java_exec_flags, times, delay, "openjdk", extra_java_exec_flags)
+    openjdk_executions = run_full_java(test_name, starting_size, iters, iter_type, iter_factor, java_exec_flags, times, delay, "openjdk", extra_java_exec_flags, timeout)
 
     graal_compilations = compile_java(test_name, times, delay, "graal", extra_java_comp_flags)
-    graal_executions = run_full_java(test_name, starting_size, iters, iter_type, iter_factor, java_exec_flags, times, delay, "graal", extra_java_exec_flags)
+    graal_executions = run_full_java(test_name, starting_size, iters, iter_type, iter_factor, java_exec_flags, times, delay, "graal", extra_java_exec_flags, timeout)
 
     # save results
     base_filepath = f"testbench_outputs/{test_name}/start{starting_size}_iters{iters}_times{times}_delay{delay}_"
@@ -193,9 +218,9 @@ test_command_with_arg("json_io", starting_size=128, iters=4, iter_type="mult",
                       extra_java_comp_flags=["-cp", "libs/*:."], extra_java_exec_flags=["-cp", "libs/*:."])
 test_command_with_arg("multithread_primes", starting_size=0, iters=1, iter_type="add",
                       iter_factor=0, times=times, delay=delay)
-# test_command_with_arg("web_server") # how to do?
-test_command_with_arg("client", starting_size=0, iters=1, iter_type="add", iter_factor=0, times=times, delay=30)
-test_command_with_arg("server", starting_size=0, iters=1, iter_type="add", iter_factor=0, times=times, delay=30)
+test_command_with_arg("server", starting_size=0, iters=1, iter_type="add", 
+                      iter_factor=0, times=times, delay=delay, timeout=15)
+
 testbench_log.close()
 # # output_file = "testbench_outputs/" + sys.argv[1] + ".json"
 # res = run_perfs("power/energy-pkg/", ["sleep", "1"], times=5, delay=1)
